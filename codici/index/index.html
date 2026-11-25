@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>μεθυσμένος - Home</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">🍻 μεθυσμένος</a>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="../giocatori/giocatori.html">Giocatori</a>
+      <a href="../partita/partita.html">Partita</a>
+      <a href="../statistiche/statistiche.html">Statistiche</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>μεθυσμένος</h1>
+      <p>Lancia il dado, pesca carte Bonus e Malus, investi i tuoi dollari e sfida i tuoi amici a colpi di shottini!</p>
+      <button id="btnOpenStartModal" class="btn btn-primary" style="font-size: 1.15rem; padding: 0.9rem 2rem;">
+        🎲 Nuova Partita
+      </button>
+    </section>
+
+    <div class="grid-cards">
+      <div class="feature-card">
+        <div>
+          <h3>👥 Gestione Giocatori</h3>
+          <p>Aggiungi, modifica o disattiva i partecipanti. Carica e salva l'archivio direttamente in formato JSON.</p>
+        </div>
+        <a href="../giocatori/giocatori.html" class="btn btn-outline">Vai ai Giocatori</a>
+      </div>
+
+      <div class="feature-card">
+        <div>
+          <h3>🃏 Arena di Gioco</h3>
+          <p>Dado a 3 facce pesato, mazzo Bonus/Malus, scudi protettivi, investimenti a breve/medio/lungo termine e giro Monopoli.</p>
+        </div>
+        <a href="../partita/partita.html" class="btn btn-outline">Vai alla Partita</a>
+      </div>
+
+      <div class="feature-card">
+        <div>
+          <h3>📊 Statistiche Storiche</h3>
+          <p>Tieni traccia delle partite giocate, degli shottini totali bevuti e del bilancio economico di ogni giocatore.</p>
+        </div>
+        <a href="../statistiche/statistiche.html" class="btn btn-outline">Vai alle Statistiche</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📜 Regole Rapide</h2>
+      <ul style="padding-left: 1.5rem; color: var(--text-muted); line-height: 1.8;">
+        <li><strong>Numero minimo:</strong> Servono almeno <strong>3 giocatori attivi</strong> per avviare una partita.</li>
+        <li><strong>Turni e Monopoli:</strong> Ogni giocatore parte con <strong>200$</strong>. A ogni nuovo giro (quando torna il suo turno) riceve <strong>+100$</strong>.</li>
+        <li><strong>Dado & Carte:</strong> Nel proprio turno bisogna sia <strong>lanciare il dado</strong> (1: 34%, 2: 33%, 3: 33% shottini) sia <strong>pescare una carta</strong> Bonus o Malus.</li>
+        <li><strong>Azioni extra:</strong> Puoi investire denaro (Breve 2 turni ±40%, Medio 3 turni ±30%, Lungo 4 turni ±20%), comprare uno <strong>Scudo (500$)</strong> o <strong>Far bere tutti (500$)</strong>.</li>
+      </ul>
+    </div>
+  </main>
+
+  <!-- Modal Avvio Partita -->
+  <div id="startModal" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Seleziona Giocatori (Minimo 3)</h3>
+        <button class="modal-close" id="closeStartModal">&times;</button>
+      </div>
+      <div id="startAlert" class="alert alert-danger" style="display:none;"></div>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">Seleziona almeno 3 giocatori attivi dal database per iniziare la partita:</p>
+      <div id="playerCheckList" class="player-selector-grid"></div>
+      <div class="modal-footer">
+        <a href="../giocatori/giocatori.html" class="btn btn-outline">Gestisci Giocatori</a>
+        <button id="confirmStartGame" class="btn btn-success">Inizia Partita</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>

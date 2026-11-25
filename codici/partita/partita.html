@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>μεθυσμένος - Partita</title>
+  <link rel="stylesheet" href="partita.css">
+</head>
+<body>
+  <header>
+    <a href="../index/index.html" class="logo">🍻 μεθυσμένος</a>
+    <nav>
+      <a href="../index/index.html">Home</a>
+      <a href="../giocatori/giocatori.html">Giocatori</a>
+      <a href="partita.html" class="active">Partita</a>
+      <a href="../statistiche/statistiche.html">Statistiche</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Schermata di selezione se nessuna partita è in corso -->
+    <div id="setupScreen" class="card" style="display:none;">
+      <h2>🎲 Avvia una Nuova Partita</h2>
+      <div id="setupAlert" class="alert alert-danger" style="display:none;"></div>
+      <p style="color: var(--text-muted); margin-bottom: 1rem;">
+        Seleziona <strong>almeno 3 giocatori attivi</strong> dal database per iniziare:
+      </p>
+      <div id="setupPlayerList" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:0.75rem; margin-bottom:1.5rem;"></div>
+      <button id="btnStartFromPartita" class="btn btn-primary">Inizia Partita</button>
+      <a href="../giocatori/giocatori.html" class="btn btn-outline">Vai a Gestione Giocatori</a>
+    </div>
+
+    <!-- Arena di Gioco Attiva -->
+    <div id="gameArena" style="display:none;">
+      <div class="turn-banner">
+        <div class="turn-info">
+          <div style="font-size:0.85rem; text-transform:uppercase; color:var(--text-muted); font-weight:700;">
+            Turno Generale #<span id="roundNumber">1</span>
+          </div>
+          <h2>Tocca a: <span id="currentPlayerName">-</span></h2>
+          <p id="turnStatusText" style="color: var(--text-muted); font-size:0.95rem;">
+            Devi lanciare il dado e pescare una carta per completare il turno.
+          </p>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+          <div class="dice-box" id="diceResultBox" title="Ultimo lancio dado">🎲 -</div>
+          <div class="turn-controls">
+            <button id="btnRollDice" class="btn btn-primary">🎲 Lancia dado</button>
+            <button id="btnDrawCard" class="btn btn-purple">🃏 Pesca carta</button>
+            <button id="btnNextTurn" class="btn btn-success" disabled>➡️ Prossimo turno</button>
+            <button id="btnEndGame" class="btn btn-danger">🏁 Termina Partita</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Risultato ultima carta pescata -->
+      <div id="lastCardDisplay" class="card-reveal" style="display:none;"></div>
+
+      <!-- Tabella Principale Giocatori -->
+      <div class="card">
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Nickname</th>
+                <th>Soldi posseduti</th>
+                <th>Shottini</th>
+                <th>Investi</th>
+                <th>Fai bere tutti</th>
+                <th>Scudo</th>
+              </tr>
+            </thead>
+            <tbody id="gameTableBody"></tbody>
+          </table>
+        </div>
+
+        <div style="margin-top: 1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+          <button id="btnLegenda" class="btn btn-outline">📖 Legenda</button>
+          <span style="color:var(--text-muted); font-size:0.85rem;">
+            Logica Monopoli attiva: +100$ all'inizio di ogni nuovo turno del giocatore.
+          </span>
+        </div>
+      </div>
+
+      <!-- Registro Eventi -->
+      <div class="card">
+        <h3>📋 Registro della Partita</h3>
+        <div id="gameLogs" class="log-box"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- POPUP LEGENDA -->
+  <div id="legendaModal" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>📖 Legenda della Partita</h3>
+        <button class="modal-close" data-close="legendaModal">&times;</button>
+      </div>
+      <ul style="list-style:none; display:flex; flex-direction:column; gap:0.85rem; line-height:1.5;">
+        <li><strong>Nickname:</strong> è il soprannome del giocatore.</li>
+        <li><strong>Soldi posseduti:</strong> sono i soldi che quella persona possiede in quel momento.</li>
+        <li><strong>Shottini:</strong> sono quanti shottini una persona ha bevuto in quella partita.</li>
+        <li><strong>Fai bere tutti:</strong> fa aumentare il counter “shottini” di 1 a tutti (costo 500$).</li>
+        <li><strong>Scudo:</strong> ogni malus viene annullato e il lancio del dato non verrà contato (costo 500$).</li>
+      </ul>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-close="legendaModal">Ho capito</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP INVESTIMENTI -->
+  <div id="investModal" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>📈 Nuovo Investimento - <span id="investPlayerNickname"></span></h3>
+        <button class="modal-close" data-close="investModal">&times;</button>
+      </div>
+      <div id="investError" class="alert alert-danger" style="display:none;"></div>
+      <div class="form-group">
+        <label for="investAmount">Quanto vuoi investire ($)</label>
+        <input type="number" id="investAmount" min="1" step="1" placeholder="Es. 100">
+      </div>
+      <div class="form-group">
+        <label for="investType">Tipologia di investimento</label>
+        <select id="investType">
+          <option value="breve">Breve termine (rischio 40%, +/- 40% dopo 2 turni)</option>
+          <option value="medio">Medio termine (rischio 30%, +/- 30% dopo 3 turni)</option>
+          <option value="lungo">Lungo termine (rischio 20%, +/- 20% dopo 4 turni)</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" data-close="investModal">Annulla</button>
+        <button id="confirmInvestBtn" class="btn btn-success">Conferma Investimento</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP SCELTA GIOCATORE BERSAGLIO (Per carte come "scegli a chi far bere" o "scambia bicchiere") -->
+  <div id="targetPlayerModal" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="targetModalTitle">Scegli un giocatore</h3>
+      </div>
+      <p id="targetModalDesc" style="color:var(--text-muted);"></p>
+      <div id="targetModalList" class="target-btn-list"></div>
+    </div>
+  </div>
+
+  <script src="partita.js"></script>
+</body>
+</html>

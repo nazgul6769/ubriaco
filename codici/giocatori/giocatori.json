@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1001",
+    "nome": "Marco",
+    "cognome": "Rossi",
+    "nickname": "ElMacho",
+    "dataInserimento": "10/11/26",
+    "dataEliminazione": "-",
+    "stato": "attivo"
+  },
+  {
+    "id": "1002",
+    "nome": "Giulia",
+    "cognome": "Bianchi",
+    "nickname": "QueenShot",
+    "dataInserimento": "10/11/26",
+    "dataEliminazione": "-",
+    "stato": "attivo"
+  },
+  {
+    "id": "1003",
+    "nome": "Luca",
+    "cognome": "Verdi",
+    "nickname": "Bacco99",
+    "dataInserimento": "11/11/26",
+    "dataEliminazione": "-",
+    "stato": "attivo"
+  },
+  {
+    "id": "1004",
+    "nome": "Sara",
+    "cognome": "Neri",
+    "nickname": "Spritzina",
+    "dataInserimento": "11/11/26",
+    "dataEliminazione": "-",
+    "stato": "attivo"
+  }
+]

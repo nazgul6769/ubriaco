@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1001",
+    "nome": "Marco",
+    "cognome": "Rossi",
+    "nickname": "ElMacho",
+    "partiteGiocate": 3,
+    "shottiniBevuti": 14,
+    "totSoldiGuadagnati": 1250,
+    "totSoldiSpesi": 800
+  },
+  {
+    "id": "1002",
+    "nome": "Giulia",
+    "cognome": "Bianchi",
+    "nickname": "QueenShot",
+    "partiteGiocate": 3,
+    "shottiniBevuti": 11,
+    "totSoldiGuadagnati": 1400,
+    "totSoldiSpesi": 650
+  },
+  {
+    "id": "1003",
+    "nome": "Luca",
+    "cognome": "Verdi",
+    "nickname": "Bacco99",
+    "partiteGiocate": 2,
+    "shottiniBevuti": 16,
+    "totSoldiGuadagnati": 900,
+    "totSoldiSpesi": 700
+  },
+  {
+    "id": "1004",
+    "nome": "Sara",
+    "cognome": "Neri",
+    "nickname": "Spritzina",
+    "partiteGiocate": 2,
+    "shottiniBevuti": 9,
+    "totSoldiGuadagnati": 1100,
+    "totSoldiSpesi": 500
+  }
+]

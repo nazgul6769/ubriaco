@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>μεθυσμένος - Statistiche</title>
+  <link rel="stylesheet" href="statistiche.css">
+</head>
+<body>
+  <header>
+    <a href="../index/index.html" class="logo">🍻 μεθυσμένος</a>
+    <nav>
+      <a href="../index/index.html">Home</a>
+      <a href="../giocatori/giocatori.html">Giocatori</a>
+      <a href="../partita/partita.html">Partita</a>
+      <a href="statistiche.html" class="active">Statistiche</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="toolbar">
+      <h1>📊 Statistiche Giocatori</h1>
+      <div style="display:flex; gap:0.75rem;">
+        <button id="btnOpenLoadModal" class="btn btn-info">📂 Carica dati</button>
+        <button id="btnOpenSaveModal" class="btn btn-success">💾 Salva dati</button>
+      </div>
+    </div>
+
+    <div id="statusBanner" class="alert" style="display:none;"></div>
+
+    <div class="kpi-grid" id="kpiContainer"></div>
+
+    <div class="card">
+      <h2>Classifica e Storico Generale</h2>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>NOME</th>
+              <th>COGNOME</th>
+              <th>NICKNAME</th>
+              <th>PARTITE GIOCATE</th>
+              <th>SHOTTINI BEVUTI</th>
+              <th>TOT SOLDI GUADAGNATI</th>
+              <th>TOT SOLDI SPESI</th>
+            </tr>
+          </thead>
+          <tbody id="statsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Popup Carica Dati -->
+  <div id="loadModal" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>📂 Carica dati (statistiche.json)</h3>
+        <button class="modal-close" data-close="loadModal">&times;</button>
+      </div>
+      <div class="form-group">
+        <label for="jsonFileInput">Seleziona il file JSON delle statistiche:</label>
+        <input type="file" id="jsonFileInput" accept=".json,application/json">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" data-close="loadModal">Chiudi</button>
+        <button id="confirmLoadJson" class="btn btn-info">Carica nel Database</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup Salva Dati -->
+  <div id="saveModal" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>💾 Salva dati (statistiche.json)</h3>
+        <button class="modal-close" data-close="saveModal">&times;</button>
+      </div>
+      <p style="color: var(--text-muted); margin-bottom: 1rem;">
+        Salva le statistiche aggiornate su <strong>statistiche.json</strong> sovrascrivendo il file precedente.
+      </p>
+      <div class="form-group">
+        <label for="saveFileName">Nome file:</label>
+        <input type="text" id="saveFileName" value="statistiche.json">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" data-close="saveModal">Annulla</button>
+        <button id="confirmSaveJson" class="btn btn-success">Salva File JSON</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="statistiche.js"></script>
+</body>
+</html>
